@@ -1,0 +1,28 @@
+server:
+  port: 8055
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: root
+    url: jdbc:mysql://192.172.0.5:3306/woniu_his?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    type: com.zaxxer.hikari.HikariDataSource
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.172.0.5:8848
+        group: group1
+  rabbitmq:
+    username: xuwen
+    password: xuwen
+    virtual-host: /xuwen
+    host: 192.172.0.5
+    port: 5672
+    publisher-confirm-type: CORRELATED
+    listener:
+      simple:
+        acknowledge-mode: manual
+      direct:
+        acknowledge-mode: manual
+

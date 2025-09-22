@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.outlet.dao.WardPoMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.outlet.po.WardPo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="w_no" jdbcType="VARCHAR" property="wNo" />
+    <result column="w_level" jdbcType="VARCHAR" property="wLevel" />
+    <result column="w_area" jdbcType="VARCHAR" property="wArea" />
+    <result column="w_price" jdbcType="DECIMAL" property="wPrice" />
+    <result column="w_num" jdbcType="INTEGER" property="wNum" />
+    <result column="w_sid" jdbcType="INTEGER" property="wSid" />
+    <result column="w_sname" jdbcType="VARCHAR" property="wSname" />
+    <result column="w_status" jdbcType="CHAR" property="wStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, w_no, w_level, w_area, w_price, w_num, w_sid, w_sname, w_status
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.outlet.po.WardPoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from woniu_his_ward
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from woniu_his_ward
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from woniu_his_ward
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniu.outlet.po.WardPoExample">
+    delete from woniu_his_ward
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniu.outlet.po.WardPo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_ward (w_no, w_level, w_area, 
+      w_price, w_num, w_sid, 
+      w_sname, w_status)
+    values (#{wNo,jdbcType=VARCHAR}, #{wLevel,jdbcType=VARCHAR}, #{wArea,jdbcType=VARCHAR}, 
+      #{wPrice,jdbcType=DECIMAL}, #{wNum,jdbcType=INTEGER}, #{wSid,jdbcType=INTEGER}, 
+      #{wSname,jdbcType=VARCHAR}, #{wStatus,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.outlet.po.WardPo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_ward
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wNo != null">
+        w_no,
+      </if>
+      <if test="wLevel != null">
+        w_level,
+      </if>
+      <if test="wArea != null">
+        w_area,
+      </if>
+      <if test="wPrice != null">
+        w_price,
+      </if>
+      <if test="wNum != null">
+        w_num,
+      </if>
+      <if test="wSid != null">
+        w_sid,
+      </if>
+      <if test="wSname != null">
+        w_sname,
+      </if>
+      <if test="wStatus != null">
+        w_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wNo != null">
+        #{wNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wLevel != null">
+        #{wLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="wArea != null">
+        #{wArea,jdbcType=VARCHAR},
+      </if>
+      <if test="wPrice != null">
+        #{wPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="wNum != null">
+        #{wNum,jdbcType=INTEGER},
+      </if>
+      <if test="wSid != null">
+        #{wSid,jdbcType=INTEGER},
+      </if>
+      <if test="wSname != null">
+        #{wSname,jdbcType=VARCHAR},
+      </if>
+      <if test="wStatus != null">
+        #{wStatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.outlet.po.WardPoExample" resultType="java.lang.Long">
+    select count(*) from woniu_his_ward
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update woniu_his_ward
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.wNo != null">
+        w_no = #{record.wNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wLevel != null">
+        w_level = #{record.wLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wArea != null">
+        w_area = #{record.wArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wPrice != null">
+        w_price = #{record.wPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.wNum != null">
+        w_num = #{record.wNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.wSid != null">
+        w_sid = #{record.wSid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wSname != null">
+        w_sname = #{record.wSname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wStatus != null">
+        w_status = #{record.wStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update woniu_his_ward
+    set id = #{record.id,jdbcType=INTEGER},
+      w_no = #{record.wNo,jdbcType=VARCHAR},
+      w_level = #{record.wLevel,jdbcType=VARCHAR},
+      w_area = #{record.wArea,jdbcType=VARCHAR},
+      w_price = #{record.wPrice,jdbcType=DECIMAL},
+      w_num = #{record.wNum,jdbcType=INTEGER},
+      w_sid = #{record.wSid,jdbcType=INTEGER},
+      w_sname = #{record.wSname,jdbcType=VARCHAR},
+      w_status = #{record.wStatus,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.outlet.po.WardPo">
+    update woniu_his_ward
+    <set>
+      <if test="wNo != null">
+        w_no = #{wNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wLevel != null">
+        w_level = #{wLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="wArea != null">
+        w_area = #{wArea,jdbcType=VARCHAR},
+      </if>
+      <if test="wPrice != null">
+        w_price = #{wPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="wNum != null">
+        w_num = #{wNum,jdbcType=INTEGER},
+      </if>
+      <if test="wSid != null">
+        w_sid = #{wSid,jdbcType=INTEGER},
+      </if>
+      <if test="wSname != null">
+        w_sname = #{wSname,jdbcType=VARCHAR},
+      </if>
+      <if test="wStatus != null">
+        w_status = #{wStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.outlet.po.WardPo">
+    update woniu_his_ward
+    set w_no = #{wNo,jdbcType=VARCHAR},
+      w_level = #{wLevel,jdbcType=VARCHAR},
+      w_area = #{wArea,jdbcType=VARCHAR},
+      w_price = #{wPrice,jdbcType=DECIMAL},
+      w_num = #{wNum,jdbcType=INTEGER},
+      w_sid = #{wSid,jdbcType=INTEGER},
+      w_sname = #{wSname,jdbcType=VARCHAR},
+      w_status = #{wStatus,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,21 @@
+spring:
+  profiles: test
+  cloud:
+    nacos:
+      discovery:
+        namespace: public
+        password: nacos
+        server-addr: 192.172.0.12:8848
+        username: nacos
+        group: group1
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: defaultDataSource
+    password: root
+    url: jdbc:mysql://192.172.0.12:3306/woniu_his?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+  redis:
+    port: 6379
+    host: 192.172.0.12
+server:
+  port: 8000

@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: woniu-his-gateway
+  cloud:
+    gateway:
+      globalcors: #跨域配置
+        corsConfigurations:
+          '[/**]':
+            allow-credentials: true     # 允许携带认证信息
+            allowedOrigins: "*"         # 允许跨域的源(网站域名/ip)，设置*为全部
+            allowedMethods: "*"         # 允许跨域的method， 默认为GET和OPTIONS，设置*为全部
+            allowedHeaders: "*"         # 允许跨域请求里的head字段，设置*为全部
+      routes:
+        - id: woniu-his-drug #药房模块
+          uri: lb://woniu-his-drug
+          predicates:
+            - Path=/drug/**
+#          filters:
+#            - StripPrefix=1
+        - id: woniu-his-outpatient #门诊部
+          uri: lb://woniu-his-outpatient
+          predicates:
+            - Path=/outpatient/**
+#          filters:
+#            - StripPrefix=2
+        - id: 护士站管理
+          uri: lb://woniu-his-nurse
+          predicates:
+            - Path=/nurse/**
+        - id: 收费管理
+          uri: lb://woniu-his-charge
+          predicates:
+            - Path=/charge/**
+        - id: 系统管理
+          uri: lb://basic-info
+          predicates:
+            - Path=/basic/**
+server:
+  port: 9528

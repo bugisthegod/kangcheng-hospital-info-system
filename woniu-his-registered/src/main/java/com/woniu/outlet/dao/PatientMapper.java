@@ -1,0 +1,26 @@
+package com.woniu.outlet.dao;
+
+import com.woniu.outlet.po.Patient;
+import com.woniu.outlet.po.PatientExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PatientMapper {
+    long countByExample(PatientExample example);
+
+    int deleteByExample(PatientExample example);
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(Patient record);
+    int insertSelective(Patient record);
+
+    List<Patient> selectByExample(PatientExample example);
+    Patient selectByPrimaryKey(Integer id);
+
+    int updateByExampleSelective(@Param("record") Patient record, @Param("example") PatientExample example);
+    int updateByExample(@Param("record") Patient record, @Param("example") PatientExample example);
+    int updateByPrimaryKeySelective(Patient record);
+    int updateByPrimaryKey(Patient record);
+}

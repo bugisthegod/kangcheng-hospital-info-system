@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.outlet.dao.PrescriptionPoMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.outlet.po.PrescriptionPo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ps_no" jdbcType="VARCHAR" property="psNo" />
+    <result column="ps_patientid" jdbcType="INTEGER" property="psPatientid" />
+    <result column="ps_doctorid" jdbcType="INTEGER" property="psDoctorid" />
+    <result column="ps_total" jdbcType="DECIMAL" property="psTotal" />
+    <result column="ps_date" jdbcType="TIMESTAMP" property="psDate" />
+    <result column="ps_status" jdbcType="CHAR" property="psStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ps_no, ps_patientid, ps_doctorid, ps_total, ps_date, ps_status
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.outlet.po.PrescriptionPoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from woniu_his_prescription
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from woniu_his_prescription
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from woniu_his_prescription
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniu.outlet.po.PrescriptionPoExample">
+    delete from woniu_his_prescription
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniu.outlet.po.PrescriptionPo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_prescription (ps_no, ps_patientid, ps_doctorid, 
+      ps_total, ps_date, ps_status
+      )
+    values (#{psNo,jdbcType=VARCHAR}, #{psPatientid,jdbcType=INTEGER}, #{psDoctorid,jdbcType=INTEGER}, 
+      #{psTotal,jdbcType=DECIMAL}, #{psDate,jdbcType=TIMESTAMP}, #{psStatus,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.outlet.po.PrescriptionPo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_prescription
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psNo != null">
+        ps_no,
+      </if>
+      <if test="psPatientid != null">
+        ps_patientid,
+      </if>
+      <if test="psDoctorid != null">
+        ps_doctorid,
+      </if>
+      <if test="psTotal != null">
+        ps_total,
+      </if>
+      <if test="psDate != null">
+        ps_date,
+      </if>
+      <if test="psStatus != null">
+        ps_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psNo != null">
+        #{psNo,jdbcType=VARCHAR},
+      </if>
+      <if test="psPatientid != null">
+        #{psPatientid,jdbcType=INTEGER},
+      </if>
+      <if test="psDoctorid != null">
+        #{psDoctorid,jdbcType=INTEGER},
+      </if>
+      <if test="psTotal != null">
+        #{psTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="psDate != null">
+        #{psDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="psStatus != null">
+        #{psStatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.outlet.po.PrescriptionPoExample" resultType="java.lang.Long">
+    select count(*) from woniu_his_prescription
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update woniu_his_prescription
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.psNo != null">
+        ps_no = #{record.psNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psPatientid != null">
+        ps_patientid = #{record.psPatientid,jdbcType=INTEGER},
+      </if>
+      <if test="record.psDoctorid != null">
+        ps_doctorid = #{record.psDoctorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.psTotal != null">
+        ps_total = #{record.psTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.psDate != null">
+        ps_date = #{record.psDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.psStatus != null">
+        ps_status = #{record.psStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update woniu_his_prescription
+    set id = #{record.id,jdbcType=INTEGER},
+      ps_no = #{record.psNo,jdbcType=VARCHAR},
+      ps_patientid = #{record.psPatientid,jdbcType=INTEGER},
+      ps_doctorid = #{record.psDoctorid,jdbcType=INTEGER},
+      ps_total = #{record.psTotal,jdbcType=DECIMAL},
+      ps_date = #{record.psDate,jdbcType=TIMESTAMP},
+      ps_status = #{record.psStatus,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.outlet.po.PrescriptionPo">
+    update woniu_his_prescription
+    <set>
+      <if test="psNo != null">
+        ps_no = #{psNo,jdbcType=VARCHAR},
+      </if>
+      <if test="psPatientid != null">
+        ps_patientid = #{psPatientid,jdbcType=INTEGER},
+      </if>
+      <if test="psDoctorid != null">
+        ps_doctorid = #{psDoctorid,jdbcType=INTEGER},
+      </if>
+      <if test="psTotal != null">
+        ps_total = #{psTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="psDate != null">
+        ps_date = #{psDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="psStatus != null">
+        ps_status = #{psStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.outlet.po.PrescriptionPo">
+    update woniu_his_prescription
+    set ps_no = #{psNo,jdbcType=VARCHAR},
+      ps_patientid = #{psPatientid,jdbcType=INTEGER},
+      ps_doctorid = #{psDoctorid,jdbcType=INTEGER},
+      ps_total = #{psTotal,jdbcType=DECIMAL},
+      ps_date = #{psDate,jdbcType=TIMESTAMP},
+      ps_status = #{psStatus,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

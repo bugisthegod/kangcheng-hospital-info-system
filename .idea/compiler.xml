@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="basic-info" />
+        <module name="woniu-his-nurse" />
+        <module name="sso-login" />
+        <module name="woniu-his-drug" />
+        <module name="woniu-his-charge" />
+        <module name="woniu-his-outpatient" />
+        <module name="woniu-his-common-xj" />
+        <module name="woniu-his-gateway" />
+        <module name="woniu-his-registered" />
+        <module name="woniu-his-charge-consumer" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

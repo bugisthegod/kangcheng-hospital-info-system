@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.outlet.dao.InbedMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.outlet.po.Inbed">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="patientid" jdbcType="INTEGER" property="patientid" />
+    <result column="subjectid" jdbcType="INTEGER" property="subjectid" />
+    <result column="wardid" jdbcType="INTEGER" property="wardid" />
+    <result column="bedid" jdbcType="INTEGER" property="bedid" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="doctorid" jdbcType="INTEGER" property="doctorid" />
+    <result column="nurseid" jdbcType="INTEGER" property="nurseid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, patientid, subjectid, wardid, bedid, status, doctorid, nurseid
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.outlet.po.InbedExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from woniu_his_inbed
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from woniu_his_inbed
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from woniu_his_inbed
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniu.outlet.po.InbedExample">
+    delete from woniu_his_inbed
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniu.outlet.po.Inbed">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_inbed (patientid, subjectid, wardid, 
+      bedid, status, doctorid, 
+      nurseid)
+    values (#{patientid,jdbcType=INTEGER}, #{subjectid,jdbcType=INTEGER}, #{wardid,jdbcType=INTEGER}, 
+      #{bedid,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{doctorid,jdbcType=INTEGER}, 
+      #{nurseid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.outlet.po.Inbed">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_inbed
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="patientid != null">
+        patientid,
+      </if>
+      <if test="subjectid != null">
+        subjectid,
+      </if>
+      <if test="wardid != null">
+        wardid,
+      </if>
+      <if test="bedid != null">
+        bedid,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="doctorid != null">
+        doctorid,
+      </if>
+      <if test="nurseid != null">
+        nurseid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="patientid != null">
+        #{patientid,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="wardid != null">
+        #{wardid,jdbcType=INTEGER},
+      </if>
+      <if test="bedid != null">
+        #{bedid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="doctorid != null">
+        #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="nurseid != null">
+        #{nurseid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.outlet.po.InbedExample" resultType="java.lang.Long">
+    select count(*) from woniu_his_inbed
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update woniu_his_inbed
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.patientid != null">
+        patientid = #{record.patientid,jdbcType=INTEGER},
+      </if>
+      <if test="record.subjectid != null">
+        subjectid = #{record.subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wardid != null">
+        wardid = #{record.wardid,jdbcType=INTEGER},
+      </if>
+      <if test="record.bedid != null">
+        bedid = #{record.bedid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.doctorid != null">
+        doctorid = #{record.doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.nurseid != null">
+        nurseid = #{record.nurseid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update woniu_his_inbed
+    set id = #{record.id,jdbcType=INTEGER},
+      patientid = #{record.patientid,jdbcType=INTEGER},
+      subjectid = #{record.subjectid,jdbcType=INTEGER},
+      wardid = #{record.wardid,jdbcType=INTEGER},
+      bedid = #{record.bedid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=CHAR},
+      doctorid = #{record.doctorid,jdbcType=INTEGER},
+      nurseid = #{record.nurseid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.outlet.po.Inbed">
+    update woniu_his_inbed
+    <set>
+      <if test="patientid != null">
+        patientid = #{patientid,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null">
+        subjectid = #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="wardid != null">
+        wardid = #{wardid,jdbcType=INTEGER},
+      </if>
+      <if test="bedid != null">
+        bedid = #{bedid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="doctorid != null">
+        doctorid = #{doctorid,jdbcType=INTEGER},
+      </if>
+      <if test="nurseid != null">
+        nurseid = #{nurseid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.outlet.po.Inbed">
+    update woniu_his_inbed
+    set patientid = #{patientid,jdbcType=INTEGER},
+      subjectid = #{subjectid,jdbcType=INTEGER},
+      wardid = #{wardid,jdbcType=INTEGER},
+      bedid = #{bedid,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      doctorid = #{doctorid,jdbcType=INTEGER},
+      nurseid = #{nurseid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

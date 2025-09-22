@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.outlet.dao.DrugSendPoMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.outlet.po.DrugSendPo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ds_no" jdbcType="VARCHAR" property="dsNo" />
+    <result column="ds_patientid" jdbcType="INTEGER" property="dsPatientid" />
+    <result column="ds_patientname" jdbcType="VARCHAR" property="dsPatientname" />
+    <result column="ds_total" jdbcType="DECIMAL" property="dsTotal" />
+    <result column="ds_date" jdbcType="TIMESTAMP" property="dsDate" />
+    <result column="ds_status" jdbcType="CHAR" property="dsStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ds_no, ds_patientid, ds_patientname, ds_total, ds_date, ds_status
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.outlet.po.DrugSendPoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from woniu_his_drugsend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from woniu_his_drugsend
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from woniu_his_drugsend
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniu.outlet.po.DrugSendPoExample">
+    delete from woniu_his_drugsend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniu.outlet.po.DrugSendPo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_drugsend (ds_no, ds_patientid, ds_patientname, 
+      ds_total, ds_date, ds_status
+      )
+    values (#{dsNo,jdbcType=VARCHAR}, #{dsPatientid,jdbcType=INTEGER}, #{dsPatientname,jdbcType=VARCHAR}, 
+      #{dsTotal,jdbcType=DECIMAL}, #{dsDate,jdbcType=TIMESTAMP}, #{dsStatus,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.outlet.po.DrugSendPo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_drugsend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dsNo != null">
+        ds_no,
+      </if>
+      <if test="dsPatientid != null">
+        ds_patientid,
+      </if>
+      <if test="dsPatientname != null">
+        ds_patientname,
+      </if>
+      <if test="dsTotal != null">
+        ds_total,
+      </if>
+      <if test="dsDate != null">
+        ds_date,
+      </if>
+      <if test="dsStatus != null">
+        ds_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dsNo != null">
+        #{dsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dsPatientid != null">
+        #{dsPatientid,jdbcType=INTEGER},
+      </if>
+      <if test="dsPatientname != null">
+        #{dsPatientname,jdbcType=VARCHAR},
+      </if>
+      <if test="dsTotal != null">
+        #{dsTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="dsDate != null">
+        #{dsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsStatus != null">
+        #{dsStatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.outlet.po.DrugSendPoExample" resultType="java.lang.Long">
+    select count(*) from woniu_his_drugsend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update woniu_his_drugsend
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dsNo != null">
+        ds_no = #{record.dsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dsPatientid != null">
+        ds_patientid = #{record.dsPatientid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dsPatientname != null">
+        ds_patientname = #{record.dsPatientname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dsTotal != null">
+        ds_total = #{record.dsTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dsDate != null">
+        ds_date = #{record.dsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dsStatus != null">
+        ds_status = #{record.dsStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update woniu_his_drugsend
+    set id = #{record.id,jdbcType=INTEGER},
+      ds_no = #{record.dsNo,jdbcType=VARCHAR},
+      ds_patientid = #{record.dsPatientid,jdbcType=INTEGER},
+      ds_patientname = #{record.dsPatientname,jdbcType=VARCHAR},
+      ds_total = #{record.dsTotal,jdbcType=DECIMAL},
+      ds_date = #{record.dsDate,jdbcType=TIMESTAMP},
+      ds_status = #{record.dsStatus,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.outlet.po.DrugSendPo">
+    update woniu_his_drugsend
+    <set>
+      <if test="dsNo != null">
+        ds_no = #{dsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dsPatientid != null">
+        ds_patientid = #{dsPatientid,jdbcType=INTEGER},
+      </if>
+      <if test="dsPatientname != null">
+        ds_patientname = #{dsPatientname,jdbcType=VARCHAR},
+      </if>
+      <if test="dsTotal != null">
+        ds_total = #{dsTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="dsDate != null">
+        ds_date = #{dsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dsStatus != null">
+        ds_status = #{dsStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.outlet.po.DrugSendPo">
+    update woniu_his_drugsend
+    set ds_no = #{dsNo,jdbcType=VARCHAR},
+      ds_patientid = #{dsPatientid,jdbcType=INTEGER},
+      ds_patientname = #{dsPatientname,jdbcType=VARCHAR},
+      ds_total = #{dsTotal,jdbcType=DECIMAL},
+      ds_date = #{dsDate,jdbcType=TIMESTAMP},
+      ds_status = #{dsStatus,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

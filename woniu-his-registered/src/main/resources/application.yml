@@ -1,0 +1,7 @@
+server:
+  port: 8054
+spring:
+  application:
+    name: woniu-his-registered
+  profiles:
+    active: test

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.outlet.dao.OperationItemPoMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.outlet.po.OperationItemPo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="oi_no" jdbcType="VARCHAR" property="oiNo" />
+    <result column="oi_name" jdbcType="VARCHAR" property="oiName" />
+    <result column="oi_surgerycost" jdbcType="DECIMAL" property="oiSurgerycost" />
+    <result column="oi_laborcost" jdbcType="DECIMAL" property="oiLaborcost" />
+    <result column="oi_sid" jdbcType="INTEGER" property="oiSid" />
+    <result column="oi_sname" jdbcType="VARCHAR" property="oiSname" />
+    <result column="oi_status" jdbcType="CHAR" property="oiStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, oi_no, oi_name, oi_surgerycost, oi_laborcost, oi_sid, oi_sname, oi_status
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.outlet.po.OperationItemPoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from woniu_his_operation_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from woniu_his_operation_item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from woniu_his_operation_item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniu.outlet.po.OperationItemPoExample">
+    delete from woniu_his_operation_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniu.outlet.po.OperationItemPo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_operation_item (oi_no, oi_name, oi_surgerycost, 
+      oi_laborcost, oi_sid, oi_sname, 
+      oi_status)
+    values (#{oiNo,jdbcType=VARCHAR}, #{oiName,jdbcType=VARCHAR}, #{oiSurgerycost,jdbcType=DECIMAL}, 
+      #{oiLaborcost,jdbcType=DECIMAL}, #{oiSid,jdbcType=INTEGER}, #{oiSname,jdbcType=VARCHAR}, 
+      #{oiStatus,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.outlet.po.OperationItemPo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_operation_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oiNo != null">
+        oi_no,
+      </if>
+      <if test="oiName != null">
+        oi_name,
+      </if>
+      <if test="oiSurgerycost != null">
+        oi_surgerycost,
+      </if>
+      <if test="oiLaborcost != null">
+        oi_laborcost,
+      </if>
+      <if test="oiSid != null">
+        oi_sid,
+      </if>
+      <if test="oiSname != null">
+        oi_sname,
+      </if>
+      <if test="oiStatus != null">
+        oi_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oiNo != null">
+        #{oiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="oiName != null">
+        #{oiName,jdbcType=VARCHAR},
+      </if>
+      <if test="oiSurgerycost != null">
+        #{oiSurgerycost,jdbcType=DECIMAL},
+      </if>
+      <if test="oiLaborcost != null">
+        #{oiLaborcost,jdbcType=DECIMAL},
+      </if>
+      <if test="oiSid != null">
+        #{oiSid,jdbcType=INTEGER},
+      </if>
+      <if test="oiSname != null">
+        #{oiSname,jdbcType=VARCHAR},
+      </if>
+      <if test="oiStatus != null">
+        #{oiStatus,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.outlet.po.OperationItemPoExample" resultType="java.lang.Long">
+    select count(*) from woniu_his_operation_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update woniu_his_operation_item
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.oiNo != null">
+        oi_no = #{record.oiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oiName != null">
+        oi_name = #{record.oiName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oiSurgerycost != null">
+        oi_surgerycost = #{record.oiSurgerycost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.oiLaborcost != null">
+        oi_laborcost = #{record.oiLaborcost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.oiSid != null">
+        oi_sid = #{record.oiSid,jdbcType=INTEGER},
+      </if>
+      <if test="record.oiSname != null">
+        oi_sname = #{record.oiSname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oiStatus != null">
+        oi_status = #{record.oiStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update woniu_his_operation_item
+    set id = #{record.id,jdbcType=INTEGER},
+      oi_no = #{record.oiNo,jdbcType=VARCHAR},
+      oi_name = #{record.oiName,jdbcType=VARCHAR},
+      oi_surgerycost = #{record.oiSurgerycost,jdbcType=DECIMAL},
+      oi_laborcost = #{record.oiLaborcost,jdbcType=DECIMAL},
+      oi_sid = #{record.oiSid,jdbcType=INTEGER},
+      oi_sname = #{record.oiSname,jdbcType=VARCHAR},
+      oi_status = #{record.oiStatus,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.outlet.po.OperationItemPo">
+    update woniu_his_operation_item
+    <set>
+      <if test="oiNo != null">
+        oi_no = #{oiNo,jdbcType=VARCHAR},
+      </if>
+      <if test="oiName != null">
+        oi_name = #{oiName,jdbcType=VARCHAR},
+      </if>
+      <if test="oiSurgerycost != null">
+        oi_surgerycost = #{oiSurgerycost,jdbcType=DECIMAL},
+      </if>
+      <if test="oiLaborcost != null">
+        oi_laborcost = #{oiLaborcost,jdbcType=DECIMAL},
+      </if>
+      <if test="oiSid != null">
+        oi_sid = #{oiSid,jdbcType=INTEGER},
+      </if>
+      <if test="oiSname != null">
+        oi_sname = #{oiSname,jdbcType=VARCHAR},
+      </if>
+      <if test="oiStatus != null">
+        oi_status = #{oiStatus,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.outlet.po.OperationItemPo">
+    update woniu_his_operation_item
+    set oi_no = #{oiNo,jdbcType=VARCHAR},
+      oi_name = #{oiName,jdbcType=VARCHAR},
+      oi_surgerycost = #{oiSurgerycost,jdbcType=DECIMAL},
+      oi_laborcost = #{oiLaborcost,jdbcType=DECIMAL},
+      oi_sid = #{oiSid,jdbcType=INTEGER},
+      oi_sname = #{oiSname,jdbcType=VARCHAR},
+      oi_status = #{oiStatus,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: sso-login
+  profiles:
+    active: dev

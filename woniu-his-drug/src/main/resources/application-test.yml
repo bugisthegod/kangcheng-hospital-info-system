@@ -1,0 +1,23 @@
+spring:
+  profiles: test
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: defaultDataSource
+    password: root
+    url: jdbc:mysql://192.172.0.12:3306/woniu_his?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+  rabbitmq:
+    host: 192.172.0.12
+    port: 5672
+    username: xj
+    password: 123
+    virtual-host: /xj
+    publisher-confirm-type: correlated
+    publisher-returns: true
+  redis:
+    port: 6379
+    host: 192.172.0.12
+knife4j:
+  enable: true
+server:
+  port: 8003

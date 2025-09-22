@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.outlet.dao.WorkerMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.outlet.po.Worker">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="w_account" jdbcType="VARCHAR" property="wAccount" />
+    <result column="w_password" jdbcType="VARCHAR" property="wPassword" />
+    <result column="w_card" jdbcType="VARCHAR" property="wCard" />
+    <result column="w_dpid" jdbcType="INTEGER" property="wDpid" />
+    <result column="w_sid" jdbcType="INTEGER" property="wSid" />
+    <result column="w_age" jdbcType="INTEGER" property="wAge" />
+    <result column="w_gender" jdbcType="CHAR" property="wGender" />
+    <result column="w_name" jdbcType="VARCHAR" property="wName" />
+    <result column="w_phone" jdbcType="VARCHAR" property="wPhone" />
+    <result column="w_email" jdbcType="VARCHAR" property="wEmail" />
+    <result column="w_salary" jdbcType="DECIMAL" property="wSalary" />
+    <result column="w_salt" jdbcType="VARCHAR" property="wSalt" />
+    <result column="w_status" jdbcType="CHAR" property="wStatus" />
+    <result column="w_roleid" jdbcType="INTEGER" property="wRoleid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, w_account, w_password, w_card, w_dpid, w_sid, w_age, w_gender, w_name, w_phone, 
+    w_email, w_salary, w_salt, w_status, w_roleid
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.outlet.po.WorkerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from woniu_his_worker
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from woniu_his_worker
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from woniu_his_worker
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniu.outlet.po.WorkerExample">
+    delete from woniu_his_worker
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniu.outlet.po.Worker">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_worker (w_account, w_password, w_card, 
+      w_dpid, w_sid, w_age, 
+      w_gender, w_name, w_phone, 
+      w_email, w_salary, w_salt, 
+      w_status, w_roleid)
+    values (#{wAccount,jdbcType=VARCHAR}, #{wPassword,jdbcType=VARCHAR}, #{wCard,jdbcType=VARCHAR}, 
+      #{wDpid,jdbcType=INTEGER}, #{wSid,jdbcType=INTEGER}, #{wAge,jdbcType=INTEGER}, 
+      #{wGender,jdbcType=CHAR}, #{wName,jdbcType=VARCHAR}, #{wPhone,jdbcType=VARCHAR}, 
+      #{wEmail,jdbcType=VARCHAR}, #{wSalary,jdbcType=DECIMAL}, #{wSalt,jdbcType=VARCHAR}, 
+      #{wStatus,jdbcType=CHAR}, #{wRoleid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.outlet.po.Worker">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into woniu_his_worker
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wAccount != null">
+        w_account,
+      </if>
+      <if test="wPassword != null">
+        w_password,
+      </if>
+      <if test="wCard != null">
+        w_card,
+      </if>
+      <if test="wDpid != null">
+        w_dpid,
+      </if>
+      <if test="wSid != null">
+        w_sid,
+      </if>
+      <if test="wAge != null">
+        w_age,
+      </if>
+      <if test="wGender != null">
+        w_gender,
+      </if>
+      <if test="wName != null">
+        w_name,
+      </if>
+      <if test="wPhone != null">
+        w_phone,
+      </if>
+      <if test="wEmail != null">
+        w_email,
+      </if>
+      <if test="wSalary != null">
+        w_salary,
+      </if>
+      <if test="wSalt != null">
+        w_salt,
+      </if>
+      <if test="wStatus != null">
+        w_status,
+      </if>
+      <if test="wRoleid != null">
+        w_roleid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wAccount != null">
+        #{wAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="wPassword != null">
+        #{wPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="wCard != null">
+        #{wCard,jdbcType=VARCHAR},
+      </if>
+      <if test="wDpid != null">
+        #{wDpid,jdbcType=INTEGER},
+      </if>
+      <if test="wSid != null">
+        #{wSid,jdbcType=INTEGER},
+      </if>
+      <if test="wAge != null">
+        #{wAge,jdbcType=INTEGER},
+      </if>
+      <if test="wGender != null">
+        #{wGender,jdbcType=CHAR},
+      </if>
+      <if test="wName != null">
+        #{wName,jdbcType=VARCHAR},
+      </if>
+      <if test="wPhone != null">
+        #{wPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="wEmail != null">
+        #{wEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="wSalary != null">
+        #{wSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="wSalt != null">
+        #{wSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="wStatus != null">
+        #{wStatus,jdbcType=CHAR},
+      </if>
+      <if test="wRoleid != null">
+        #{wRoleid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.outlet.po.WorkerExample" resultType="java.lang.Long">
+    select count(*) from woniu_his_worker
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update woniu_his_worker
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.wAccount != null">
+        w_account = #{record.wAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wPassword != null">
+        w_password = #{record.wPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wCard != null">
+        w_card = #{record.wCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wDpid != null">
+        w_dpid = #{record.wDpid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wSid != null">
+        w_sid = #{record.wSid,jdbcType=INTEGER},
+      </if>
+      <if test="record.wAge != null">
+        w_age = #{record.wAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.wGender != null">
+        w_gender = #{record.wGender,jdbcType=CHAR},
+      </if>
+      <if test="record.wName != null">
+        w_name = #{record.wName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wPhone != null">
+        w_phone = #{record.wPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wEmail != null">
+        w_email = #{record.wEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wSalary != null">
+        w_salary = #{record.wSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="record.wSalt != null">
+        w_salt = #{record.wSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wStatus != null">
+        w_status = #{record.wStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.wRoleid != null">
+        w_roleid = #{record.wRoleid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update woniu_his_worker
+    set id = #{record.id,jdbcType=INTEGER},
+      w_account = #{record.wAccount,jdbcType=VARCHAR},
+      w_password = #{record.wPassword,jdbcType=VARCHAR},
+      w_card = #{record.wCard,jdbcType=VARCHAR},
+      w_dpid = #{record.wDpid,jdbcType=INTEGER},
+      w_sid = #{record.wSid,jdbcType=INTEGER},
+      w_age = #{record.wAge,jdbcType=INTEGER},
+      w_gender = #{record.wGender,jdbcType=CHAR},
+      w_name = #{record.wName,jdbcType=VARCHAR},
+      w_phone = #{record.wPhone,jdbcType=VARCHAR},
+      w_email = #{record.wEmail,jdbcType=VARCHAR},
+      w_salary = #{record.wSalary,jdbcType=DECIMAL},
+      w_salt = #{record.wSalt,jdbcType=VARCHAR},
+      w_status = #{record.wStatus,jdbcType=CHAR},
+      w_roleid = #{record.wRoleid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.outlet.po.Worker">
+    update woniu_his_worker
+    <set>
+      <if test="wAccount != null">
+        w_account = #{wAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="wPassword != null">
+        w_password = #{wPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="wCard != null">
+        w_card = #{wCard,jdbcType=VARCHAR},
+      </if>
+      <if test="wDpid != null">
+        w_dpid = #{wDpid,jdbcType=INTEGER},
+      </if>
+      <if test="wSid != null">
+        w_sid = #{wSid,jdbcType=INTEGER},
+      </if>
+      <if test="wAge != null">
+        w_age = #{wAge,jdbcType=INTEGER},
+      </if>
+      <if test="wGender != null">
+        w_gender = #{wGender,jdbcType=CHAR},
+      </if>
+      <if test="wName != null">
+        w_name = #{wName,jdbcType=VARCHAR},
+      </if>
+      <if test="wPhone != null">
+        w_phone = #{wPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="wEmail != null">
+        w_email = #{wEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="wSalary != null">
+        w_salary = #{wSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="wSalt != null">
+        w_salt = #{wSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="wStatus != null">
+        w_status = #{wStatus,jdbcType=CHAR},
+      </if>
+      <if test="wRoleid != null">
+        w_roleid = #{wRoleid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.outlet.po.Worker">
+    update woniu_his_worker
+    set w_account = #{wAccount,jdbcType=VARCHAR},
+      w_password = #{wPassword,jdbcType=VARCHAR},
+      w_card = #{wCard,jdbcType=VARCHAR},
+      w_dpid = #{wDpid,jdbcType=INTEGER},
+      w_sid = #{wSid,jdbcType=INTEGER},
+      w_age = #{wAge,jdbcType=INTEGER},
+      w_gender = #{wGender,jdbcType=CHAR},
+      w_name = #{wName,jdbcType=VARCHAR},
+      w_phone = #{wPhone,jdbcType=VARCHAR},
+      w_email = #{wEmail,jdbcType=VARCHAR},
+      w_salary = #{wSalary,jdbcType=DECIMAL},
+      w_salt = #{wSalt,jdbcType=VARCHAR},
+      w_status = #{wStatus,jdbcType=CHAR},
+      w_roleid = #{wRoleid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

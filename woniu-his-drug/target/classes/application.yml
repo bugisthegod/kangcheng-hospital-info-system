@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: woniu-his-drug
+  profiles:
+    active: dev
