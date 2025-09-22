@@ -162,13 +162,3 @@ Please modify database connections, registry addresses, and other configurations
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Contact
-
-If you have questions or suggestions, please contact us through:
-
-- Project Issues: [Submit Issue](../../issues)
-- Email: [your-email@example.com]
-
----
-
-**Note**: This is a demo project. Please adjust configurations and features according to your actual needs.
